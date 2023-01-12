@@ -579,11 +579,9 @@
                   <textarea class="form-control" name="pesan" rows="10" required></textarea>
                 </div>
                 <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+                  
                 </div>
-                <div class="text-center"><button type="submit" class="btn-kirim">Send Message</button></div>
+                <div class="text-center"><button type="submit">Send Message</button></div>
               </form>
             </div>
           </div>
@@ -691,59 +689,13 @@
 
     <script>
       const scriptURL = 'https://script.google.com/macros/s/AKfycbxkolONA5GqlD5nuliwLw7apuwryGx-VvVC0SijQZ3yYyXC9QROwoAOITm2y7zkGecxAw/exec'
-      const form = document.forms['form-homklin'];
-      const btnKirim = document.querySelector(".btn-kirim");
-      const btnAlert = document.querySelector(".btn-alert");
-      const btnLoading = document.querySelector(".btn-loading");
-      const myAlert = document.querySelector(".my-alert");
-      const str = document.getElementsByTagName("strong");
-
-      function captureName() {
-      // Menangkap input dengan nama "name"
-      var name = document.getElementsByName("name")[0].value;
-
-      // Memasukkan isi dari input ke dalam tag strong
-      // document.getElementById("nama-anda").innerHTML = name;
-      var str = document.getElementsByTagName("strong");
-
-    }
-
-    // mengubah tag strong menjadi name
-    for (var i = 0; i < str.length; i++) {
-      str[i].innerHTML = name;
-    }
+      const form = document.forms['form-homklin']
     
-    form.addEventListener("submit", e => {
+      form.addEventListener('submit', e => {
         e.preventDefault()
-        // ketika tombol submit diklik
-        // tambahkan tombol loading, hilangkan tombol kirim
-        btnLoading.classList.toggle("hidden");
-        btnKirim.classList.toggle("hidden");
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => {
-            // tambahkan tombol kirim, hilangkan tombol loading
-            btnLoading.classList.toggle("hidden");
-        btnKirim.classList.toggle("hidden");
-        // tampilkan alert
-        myAlert.classList.toggle("hidden");
-        myAlert.addEventListener("click", function() {
-          myAlert.classList.toggle("hidden");
-        })
-        // reset formnya
-        form.reset();
-        // Ketika Window di clik maka hilangkan alert
-        window.addEventListener("click", function (e) {
-              if (e.target != btnAlert && e.target != str) {
-                btnAlert.classList.add("hidden");
-                var sam = document.getElementById("nama-anda");
-                sam.classList.add("hidden");
-              }
-            });
-            // tampilkan success
-            console.log("Success!", response)
-          })
-          // tampilkan error
-          .catch(error => console.error("Error!", error.message))
+          .then(response => console.log('Success!', response))
+          .catch(error => console.error('Error!', error.message))
       })
     </script>
   </body>
