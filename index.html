@@ -104,7 +104,7 @@
         <div class="container">
           <div class="row" data-aos="zoom-in">
             <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-              <img src="assets/img/clients/client-1.png" class="img-fluid" alt="" />
+              <img src="assets/img/clients/1.png" class="img-fluid" alt="" />
             </div>
 
             <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
@@ -404,7 +404,7 @@
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
               <div class="box">
                 <h3>Paket Hemat Rumah</h3>
-                <h4><sup>$</sup>135<span>per month</span></h4>
+                <h4><sup>Rp</sup>135k<span>per bulan</span></h4>
                 <ul>
                   <li><i class="bx bx-check"></i> 1 Kamar Tidur</li>
                   <li><i class="bx bx-check"></i> 1 Ruang Tamu</li>
@@ -418,7 +418,7 @@
             <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
               <div class="box featured">
                 <h3>Paket Reguler Rumah</h3>
-                <h4><sup>$</sup>150<span>per month</span></h4>
+                <h4><sup>Rp</sup>150k<span>per bulan</span></h4>
                 <ul>
                   <li><i class="bx bx-check"></i> 1 Kamar Tidur</li>
                   <li><i class="bx bx-check"></i> 1 Ruang Tamu</li>
@@ -434,7 +434,7 @@
             <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
               <div class="box">
                 <h3>Paket Premium Rumah</h3>
-                <h4><sup>$</sup>175<span>per month</span></h4>
+                <h4><sup>Rp</sup>175k<span>per bulan</span></h4>
                 <ul>
                   <li><i class="bx bx-check"></i> 1 Kamar Tidur</li>
                   <li><i class="bx bx-check"></i> 1 Ruang Tamu</li>
@@ -528,8 +528,7 @@
             <h2>Contact</h2>
             <p>
               Butuh bantuan untuk menjaga rumah Anda bersih, sehat, dan nyaman? Homklin siap membantu Anda.
-              Anda dapat menghubungi kami melalui berbagai cara seperti email, telepon, atau melalui form kontak di website kami. Kami akan merespon dengan cepat dan siap membantu Anda dalam memberikan solusi untuk jasa kebersihan dan perbaikan alat rumah tangga yang Anda butuhkan. Anda juga dapat mengunjungi kantor kami yang terletak di alamat kami untuk berkonsultasi dengan kami atau untuk membuat janji temu.
-              Jangan biarkan masalah kebersihan dan perbaikan rumah tangga mengganggu kenyamanan Anda, hubungi Homklin sekarang dan jadikan hidup Anda lebih bersih, sehat dan nyaman bersama kami.
+              Anda dapat menghubungi kami melalui berbagai cara seperti email, telepon, atau melalui form kontak di website kami.
             </p>
           </div>
 
@@ -559,11 +558,12 @@
             </div>
 
             <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-              <div class="alert alert-success alert-dismissible fade show d-none" role="alert">
-                <strong>Terimakasih!</strong> Pesan anda sudah kami terima.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
+             
               <form name="form-homklin" method="post" class="sheet-email-form">
+                <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                  <strong>Terimakasih!</strong> Pesan anda sudah kami terima.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <div class="row">
                   <div class="form-group col-md-6">
                     <label for="name">Your Name</label>
@@ -695,12 +695,24 @@
 
     <script>
       const scriptURL = 'https://script.google.com/macros/s/AKfycbxkolONA5GqlD5nuliwLw7apuwryGx-VvVC0SijQZ3yYyXC9QROwoAOITm2y7zkGecxAw/exec'
-      const form = document.forms['form-homklin']
+      const form = document.forms['form-homklin'];
+      const btnKirim = document.querySelector('.btn-kirim');
+      const btnLoading = document.querySelector('.btn-loading');
+      const myAlert = document.querySelector('.my-alert');
     
       form.addEventListener('submit', e => {
-        e.preventDefault()
+        e.preventDefault();
+        // ketika tombol submit diklik
+        // tampilkan tombol loading, hilangkan tombol kirim
+        btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-          .then(response => console.log('Success!', response))
+          .then(response => {
+            btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
+        myAlert.classList.toggle('d-none');
+        form.reset();
+            console.log('Success!', response)})
           .catch(error => console.error('Error!', error.message))
       })
     </script>
